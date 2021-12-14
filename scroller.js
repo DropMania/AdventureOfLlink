@@ -44,6 +44,7 @@ export default class Scroller extends Phaser.Scene {
             map.widthInPixels - 32,
             map.heightInPixels
         )
+        this.cameras.roundPixels = true
         this.physics.add.collider(
             this.player,
             this.groundLayer,

@@ -9,6 +9,8 @@ export default class Skeleton extends Monster {
         this.playingAttack = false
         this.isAttacking = false
         this.fightRadius = 50
+        this.health = 30
+        this.maxHealth = 30
         this.play('left')
         createAnimations(this)
         let walkEvent = this.scene.time.addEvent({

@@ -66,15 +66,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.body.setVelocity(this.speed * 3, -300)
             this.play('link-right-hit')
         }
+        this.setTint(0xff0000)
         this.scene.time.addEvent({
-            delay: 400,
+            delay: 200,
             callback: () => {
+                this.clearTint()
                 this.playHit = false
                 this.play('link-' + this.facing + '-start')
             }
         })
         if (this.health <= 0) {
-            this.scene.scene.start('World')
+            this.scene.scene.start('World',{x:16,y:16})
         }
     }
     update() {

@@ -17,6 +17,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         this.maxHealth = 100
         this.attackDamage = 10
         this.isDead = false
+        this.speed = 50
         this.healthText = this.scene.add.text(
             this.x + 10,
             this.y - 8,
@@ -24,7 +25,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
             {
                 fontSize: '7px',
                 fill: '#fff',
-                align: 'center'
+                align: 'center',
+                fontFamily: 'sans-serif',
             }
         )
         this.isHit = false
@@ -40,12 +42,18 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         if (!this.isHit) {
             this.isHit = true
             this.health -= this.scene.player.attackDamage
-            this.healthText.setText(`${this.health}/${this.maxHealth}`)
+            this.body.setVelocity(
+                this.playerIsRight ? -this.speed*3 : this.speed*3,
+                -300
+            )
+            this.setTint(0xff0000)
             let hitEvent = this.scene.time.addEvent({
-                delay: 100,
+                delay: 200,
                 callback: () => {
                     this.isHit = false
+                    this.clearTint()
                     hitEvent.destroy()
+
                 }
             })
             if (this.health <= 0) {
@@ -58,6 +66,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     }
     update() {
         this.healthText.setPosition(this.x + 10, this.y - 8)
+        this.healthText.setText(`${this.health}/${this.maxHealth}`)
         if (this.body.deltaX() < 0) {
             this.facing = 'left'
         } else {

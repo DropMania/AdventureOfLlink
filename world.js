@@ -40,6 +40,7 @@ export default class World extends Phaser.Scene {
         this.objectLayer = map.createFromObjects('Objektebene 1')
         this.layer.setCollisionByProperty({ collides: true })
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+        this.cameras.roundPixels = true
         this.bounds = this.physics.world.setBounds(
             0,
             0,
